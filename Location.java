@@ -10,7 +10,7 @@ public class Location
 {
     private int x;
     private int y;
-
+    
     /**
      * Model a location in the city.
      * @param x The x coordinate. Must be non-negative.
@@ -40,8 +40,27 @@ public class Location
      */
     public Location nextLocation(Location destination)
     {
-         //TODO: Complete this code
-        return null;
+         if(destination == null){
+             throw new IllegalArgumentException("Destination cannot be null");
+         }
+         if(this.equals(destination)) {
+             return this;
+         }
+         int nextX = this.x;
+         int nextY = this.y;
+         
+         if(this.x < destination.getX()) {
+             nextX++;
+         }  else if(this.x > destination.getX()) {
+             nextX--;
+         }
+         if(this.y < destination.getY()) {
+             nextY++;
+         }  else if(this.y > destination.getY()) {
+             nextY--;
+         }
+         return new Location(nextX, nextY);
+         
     }
 
     /**
@@ -52,8 +71,12 @@ public class Location
      */
     public int distance(Location destination)
     {
-         //TODO: Complete this code
-        return 0;
+         if(destination == null){
+             throw new IllegalArgumentException("Destination cannot be null");
+         }
+         int diffX = Math.abs(this.x - destination.getX());
+         int diffY = Math.abs(this.y - destination.getY());
+         return Math.max(diffX, diffY);
     }
     
     /**
@@ -64,8 +87,15 @@ public class Location
     @Override
     public boolean equals(Object other)
     {
-         //TODO: Complete this code
-        return true;
+         if(this == other){
+             return true;
+         }
+         if(other == null || getClass() != other.getClass()){
+             return false;
+         }
+         Location otherLoc = (Location) other;
+         
+        return this.x == otherLoc.x && this.y == otherLoc.y;
     }
     
     /**
