@@ -12,13 +12,18 @@ import org.junit.Test;
  */
 public class LocationTest
 {
+    private Location p0;
+        private Location p1;
+        private Location p2;
+        private Location p3;
+    
     /**
      * Default constructor for test class LocationTest.
      */
     public LocationTest()
     {
     }
-
+    
     /**
      * Sets up the test fixture.
      * Called before every test case method.
@@ -26,7 +31,10 @@ public class LocationTest
     @Before
     public void setUp()
     {
-        // No setup required for Location tests
+        p0 = new Location (0,0);
+        p1 = new Location (1,5);
+        p2 = new Location (6,6);
+        p3 = new Location (5,2);
     }
 
     /**
