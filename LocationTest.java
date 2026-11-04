@@ -54,7 +54,9 @@ public class LocationTest
     @Test
     public void testDistance()
     {
-        //TODO: Complete this code
+     assertEquals(5, p0.distance(p1));
+     assertEquals(4, p2.distance(p3));
+     assertEquals(0, p0.distance(p3));
     }
     
     /**
@@ -64,7 +66,8 @@ public class LocationTest
     @Test
     public void testAdjacentLocations()
     {
-        //TODO: Complete this code
+        Location loc = new Location (1,1);
+        
     }
     
     /**
