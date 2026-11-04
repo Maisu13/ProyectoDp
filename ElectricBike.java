@@ -10,7 +10,20 @@ import java.util.ArrayList;
  */
 public class ElectricBike 
 {
-    //TODO: Complete this code
+    private String idBike;
+    private EBCompany company;
+    private Location location;
+    private Location targetLocation;
+    private Location rechargingLocation;
+    
+    private int idleCount;
+    private int batteryCapacity;
+    private int batteryLevel;
+    private int wsCharged;
+    private int chargesCount;
+    private double chargesCost;
+    
+    private List<Dock> docks;
 
     /**
      * Constructor of class ElectricBike.
@@ -23,7 +36,20 @@ public class ElectricBike
      */
     public ElectricBike(EBCompany company, Location location, Location targetLocation, String id, int batteryCapacity)
     {
-           //TODO: Complete this code
+           this.company = company;
+           this.location = location;
+           this.targetLocation = targetLocation;
+           this. idBike = id;
+           this.batteryCapacity = batteryCapacity;
+           this.batteryLevel = batteryCapacity;
+           
+           this.rechargingLocation = null;
+           this.idleCount = 0;
+           this.wsCharged = 0;
+           this.chargesCount = 0;
+           this.chargesCost = 0.0;
+           
+           this.docks = new ArrayList<Dock>();
     }
 
     /**
@@ -31,8 +57,7 @@ public class ElectricBike
      */
     public String getIdBike()
     {
-         //TODO: Complete this code
-        return null;    
+        return idBike;    
     }
 
     /**
@@ -42,17 +67,24 @@ public class ElectricBike
      */
     public void setLocation(Location location)
     {
-        //TODO: Complete this code
+        this.location = location;
     }
 
+    /**
+     * 
+     */
+    public Location getLocation()
+    {
+        return location;    
+    }
+    
     /**
      * Get the final target location.
      * @return Where this bike is ultimately headed.
      */
     public Location getTargetLocation()
     {
-        //TODO: Complete this code
-        return null;    
+        return targetLocation;
     }
 
     /**
@@ -61,11 +93,9 @@ public class ElectricBike
      */
     public Location getRechargingLocation()
     {
-        //TODO: Complete this code
-        return null;
+        return rechargingLocation;
     }
-
-
+    
     /**
      * Set the required final target location.
      * @param location Where to go. Must not be null.
@@ -73,7 +103,7 @@ public class ElectricBike
      */
     public void setTargetLocation(Location location)
     {
-        //TODO: Complete this code
+        this.targetLocation = location;
     }
 
     /**
@@ -83,7 +113,12 @@ public class ElectricBike
      */
     public void calculateRoute()
     {
-        //TODO: Complete this code
+        if (enoughBattery(targetLocation)){
+            this.rechargingLocation = null;
+        }
+        else{
+            calculateRechargingPosition();
+        }
     }
 
     /**

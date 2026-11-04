@@ -91,11 +91,27 @@ public class EBCompany
         this.stations.clear();
     }
     
+    public String getName(){
+        return name;
+    }
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    
     public List<ElectricBike> getSuscribedBikes(){
         return subscribedBikes;
     }
     
+    public void setSubscribedBikes(List<ElectricBike> subscribedBikes){
+        this.subscribedBikes = subscribedBikes;
+    }
+    
     public List<BikeStation> getStations(){
         return stations;
+    }
+    
+    public void setStations(List<BikeStation> stations){
+        this.stations = stations;
     }
 }
