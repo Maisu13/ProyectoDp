@@ -56,7 +56,7 @@ public class LocationTest
     {
      assertEquals(5, p0.distance(p1));
      assertEquals(4, p2.distance(p3));
-     assertEquals(0, p0.distance(p3));
+     assertEquals(0, p0.distance(p0));
     }
     
     /**
@@ -67,6 +67,11 @@ public class LocationTest
     public void testAdjacentLocations()
     {
         Location loc = new Location (1,1);
+        Location adjDiagonal = new Location(2,2);
+        Location adjHorizontal = new Location(2,1);
+        
+        assertEquals(adjDiagonal, loc.nextLocation(adjDiagonal));
+        assertEquals(adjHorizontal, loc.nextLocation(adjHorizontal));
         
     }
     
@@ -77,6 +82,11 @@ public class LocationTest
     @Test
     public void testNonAdjacentLocations()
     {
-        //TODO: Complete this code
+        Location next1 = p0.nextLocation(p1);
+        assertEquals(new Location(1, 1), next1);
+        Location next2 = next1.nextLocation(p1);
+        assertEquals(new Location(1, 2), next2);
+        
+        assertEquals(new Location(5,5), p2.nextLocation(p3));
     }
 }

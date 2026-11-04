@@ -9,15 +9,38 @@ import java.util.List;
  */
 public class Dock
 {
-    //TODO: Complete this code
+    private String idDock;
+    private int chargingSpeed;
+    private float chargingFee;
+    private List<ElectricBike> bikesRecharged;
+    private float amountCollected;
+    private boolean free;
 
     /**
      * Constructor for objects of class Dock.
-     * //TODO complete the JavaDoc comments
+     * @param id The unique identifier of the dock(e.j "CC00_001").
+     * @param speed The charging speed in Wh.
+     * @param fee The charging fee in €/Wh.
     */
     public Dock(String id, int speed, float fee)
     {
-        //TODO: Complete this code
+        if(id == null || id.trim().isEmpty()){
+            throw new IllegalArgumentException("El ID del dock no puede ser nulo o vacio.");
+            
+        }
+        if(speed <= 0) {
+            throw new IllegalArgumentException("La velocidad de carga debe ser mayor que 0");
+            
+        }
+        if(fee < 0){
+            throw new IllegalArgumentException("La tarifa no puede ser negativa");
+        }
+        
+        this.idDock = id;
+        this.chargingSpeed = speed;
+        this.bikesRecharged = new ArrayList<>();
+        this.amountCollected= 0.0f;
+        this.free = true;
     }
 
     
