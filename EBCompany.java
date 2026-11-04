@@ -11,7 +11,7 @@ import java.util.List;
 public class EBCompany  
 {
     private String name;
-    private List<ElectricBike> suscribedBikes;
+    private List<ElectricBike> subscribedBikes;
     private List<BikeStation> stations;
 
     /**
@@ -20,7 +20,9 @@ public class EBCompany
      */
     public EBCompany(String name)
     {
-        //TODO: Complete this code
+        this.name = name;
+        this.subscribedBikes = new ArrayList<>();
+        this.stations = new ArrayList<>();
     }
 
     /**
@@ -29,7 +31,7 @@ public class EBCompany
      */
     public void addElectricBike(ElectricBike bike)
     {       
-        //TODO: Complete this code
+        this.subscribedBikes.add(bike);
     }
 
     
@@ -39,7 +41,7 @@ public class EBCompany
      */
     public void addBikeStation(BikeStation station)
     {       
-        //TODO: Complete this code
+        this.stations.add(station);
     }
     
     
@@ -50,7 +52,11 @@ public class EBCompany
      */
     public BikeStation getBikeStation(String id)
     {
-        //TODO: Complete this code
+        for (BikeStation station : stations){
+            if (station.getId().equals(id)){
+                return station;
+            }
+        }
         return null;
     }
 
@@ -61,7 +67,11 @@ public class EBCompany
      */
     public BikeStation getBikeStation(Location location)
     {
-        //TODO: Complete this code
+        for (BikeStation station : stations){
+            if (station.getLocation().equals(location)){
+                return station;
+            }
+        }
         return null;
     }
     
@@ -70,15 +80,22 @@ public class EBCompany
      * @return The total number of managed {@link BikeStation}s.
      */
     public int getNumberOfStations(){
-        //TODO: Complete this code
-        return 0;
+        return stations.size();
     }
     
     /**
      * Clears all managed bikes and stations, resetting the company to an empty state.
      */
     public void reset(){
-        //TODO: Complete this code
+        this.subscribedBikes.clear();
+        this.stations.clear();
     }
     
+    public List<ElectricBike> getSuscribedBikes(){
+        return subscribedBikes;
+    }
+    
+    public List<BikeStation> getStations(){
+        return stations;
+    }
 }
