@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Models the operation of an Electric Bike (EB) Company. 
@@ -9,7 +10,9 @@ import java.util.*;
  */
 public class EBCompany  
 {
-    //TODO: Complete this code
+    private String name;
+    private List<ElectricBike> suscribedBikes;
+    private List<BikeStation> stations;
 
     /**
      * Constructor for objects of class EVCompany.
