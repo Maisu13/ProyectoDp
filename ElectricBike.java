@@ -224,7 +224,24 @@ public class ElectricBike
      */
     public void act(   )
     {
-       //TODO: Complete this code 
+       if (location.equals(targetLocation)){
+           idleCount++;
+       }
+       
+       Location target;
+       if(rechargingLocation != null){
+           target = rechargingLocation;
+       }
+       else{
+           target = targetLocation;
+       }
+       
+       setLocation(location.nextLocation(target));
+       reduceBatteryLevel();
+       
+       if (rechargingLocation != null && location.equals(rechargingLocation)){
+           recharge();
+       }
     }
 
     /**
@@ -232,7 +249,11 @@ public class ElectricBike
      * Ensures the battery level does not go below zero.
      */
     public void reduceBatteryLevel(){
-       //TODO: Complete this code 
+       batteryLevel = batteryLevel - 5;
+       
+       if (batteryLevel < 0){
+           batteryLevel = 0;
+       }
     }
 
     /**
@@ -241,9 +262,18 @@ public class ElectricBike
      */
     @Override
     public String toString(){
-        //TODO: Complete this code 
-        return null;
+        String rechargeStr;
+        
+        if (rechargingLocation != null){
+            rechargeStr = rechargingLocation.toString();
+        }
+        else{
+            rechargeStr = "";
+        }
+        
+        return String.format("ElectricBike: %s, %dwh, %dwh, %d, %s€, %d, %s, %s, %s",
+            idBike, batteryCapacity, batteryLevel, chargesCount, chargesCost, idleCount,
+            location.toString(), rechargeStr, targetLocation.toString());
     }
 
-   
 }
