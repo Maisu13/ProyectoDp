@@ -43,37 +43,89 @@ public class Dock
         this.free = true;
     }
 
-    
-    /**
-     * Returns a string representation of the dock, including its ID, speed, fee, and the number of EVs recharged.
-     * @return A string representation of the dock.
-     */
-    public String toString()
-    {
-        //TODO: Complete this code
-        return null;
-    }    
-
-    
     /**
      * @return The total number of {@link ElectricBike}s that have been recharged by this dock.
      */
     public int getNumerEVRecharged(){
-       //TODO: Complete this code
-        return 0;
+       
+        return bikesRecharged.size();
     }
     
     
     /**
      * Simulates the charging process for an {@link ElectricBike}.
      * Increases the amount collected and registers the bike as recharged.
-     * //TODO complete the JavaDoc comments
+     * @param bike The electric bike to be recharged. Must not be null
+     * @param energyToCharge The amount of energy in Wh needed to complete the battery charge
+     * @return The total cost of the recharge in euros
      */
-    public float recharge(   ){
-        //TODO: Complete this code
-        return 0;
+    public float recharge( ElectricBike bike, int energyToCharge  ){
+        if( bike == null){
+            throw new IllegalArgumentException("La bicicleta a recargar no puede ser nula");
+        }
+        float cost = energyToCharge * this.chargingFee;
+        this.amountCollected += cost;
+        this.bikesRecharged.add(bike);
+        return cost;
     }
 
-    //TODO: Complete this code
-
+    /**
+     * @return The unique identifier of the dock.
+     */
+    public String getId(){
+        return idDock;
+    }
+    
+    /**
+     * @return The charging speed of the dock in Wh.
+     */
+    public int getChargingSpeed(){
+        return chargingSpeed;
+    }
+    
+    /**
+     * @return The charging Fee of the dock in €/Wh.
+     */
+    public float getChargingFee(){
+        return chargingFee;
+    }
+    /**
+     * @return The total amount of money collected by this dock in euros.
+     */
+    public float getAmountCollected(){
+        return amountCollected;
+    }
+    
+    /**
+     * @return The list of (ElectricBike) recharged by this lock
+     */
+    public List<ElectricBike> getBikesRecharged(){
+        return bikesRecharged;
+    }
+    
+    /**
+     * @return The total numbre of (ElectricBike) that have been recharged by this dock
+     */
+    public int getNumberEVRecharged(){
+        return bikesRecharged.size();
+    }
+    
+    /**
+     * return true if the dock is currently available, false if occupied 
+    */
+    public boolean isFree(){
+        return free;
+    }
+    
+    /**
+     * Returns a string representation of the dock, including its ID, speed, fee, and the number of EVs recharged.
+     * @return A string representation of the dock.
+     */
+    @Override
+    public String toString()
+    {
+        String feeStr = (chargingFee + "").replace(',','.');
+        String amountStr =(amountCollected + "").replace(',','.');
+        return "Dock: " + idDock + "," + chargingSpeed + "wh,  " + feeStr +"€, " + bikesRecharged.size() + ", " + amountStr + "€)";
+    }    
 }
