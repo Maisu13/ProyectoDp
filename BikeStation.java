@@ -11,35 +11,67 @@ import java.util.stream.Collectors;
  */
 public class BikeStation
 {
-    //TODO: Complete this code
+    private String idStation;
+    private Location location;
+    private List<Dock> docks;
 
     /**
-     * Constructor for objects of class BikeStation.
-     * //TODO complete the JavaDoc comments
+     * Default constructor for class BikeStation
+     * Initializes a default station with ID "CC00" at location (0,0)
      */
-    public BikeStation(  )
-    {
-        //TODO: Complete this code
-    }
+    public BikeStation(  ) {
+        this("CC00", new Location (0,0));
+        }
 
     /**
      * Constructor for objects of class BikeStation.
-     * //TODO complete the JavaDoc comments
+     * @param id The unique identifier of the station (e.j, "CC00").
+     * @param location The georgrafic location fo the station.
+     * @throws IllegalArgumentException If id is null or empty, or location is null.
      */
     public BikeStation(String id, Location location)
     {
-        //TODO: Complete this code
+        if( id == null || id.trim().isEmpty()) {
+            throw new IllegalArgumentException("Station ID connot be null or empty.");
+        }
+        if(location == null){
+            throw new IllegalArgumentException("Location cannot be null");
+        }
+        this.idStation = id;
+        this.location = location;
+        this.docks = new ArrayList<>();    
+        }
+    
+    /**
+     * Adds a new (Dock) to the station and mountains the list ordered
+     * according to the sorting criteria (charging speed desc, fee asc, id asc).
+     * @param dock The new Dock unit to add
+     */    
+    public void addDock (Dock dock){
+        if(dock != null){
+            this.docks.add(dock);
+            Collections.sort(this.docks, new ComparatorDockOrder());
+        }
     }
     
     /**
      * Retrieves the first free {@link Dock} found at the station.
      * @return A free {@link Dock}, or possibly throws an exception if none are found (depending on stream implementation details).
-     * **Note: The implementation assumes at least one free dock exists if called.**
      */
     public Dock getFreeDock()
     {
-       //TODO: Complete this code   
-        return null;        
+        Dock freeDock= null;
+        boolean found = false;
+        int i = 0;
+        while(i< docks.size() && !found){
+            Dock current = docks.get(i);
+            if(current.isFree()){
+                freeDock = current;
+                found = true;
+            }
+            i++;
+        }
+        return freeDock;     
     }
 
     /**
@@ -47,18 +79,15 @@ public class BikeStation
      */
     public String getId()
     {
-        //TODO: Complete this code   
-        return null;
+        
+        return idStation;
     }
     
-    
     /**
-     * Adds a new {@link Dock} to the station.
-     * @param dock The new Dock unit.
+     * @return The current location of the charging station
      */
-    public void addDock(Dock dock)
-    {
-       //TODO: Complete this code
+    public Location getLocation(){
+        return location;
     }
     
     /**
@@ -68,9 +97,65 @@ public class BikeStation
      */
     public void setLocation(Location location)
     {
-       //TODO: Complete this code   
+       if(location == null){
+           throw new NullPointerException("Location connot be null");
+       }
+       this.location = location;
     }
 
-    //TODO complete the rest of the code
-
+    /**
+     * @return The list of dock units in this station
+     */
+    public List<Dock> getDocks(){
+        return docks;
+    }
+    
+    /**
+     * Calculates the total number of electir bikes recharged across all docks in the station
+     * @return Total count of recharged bikes
+     */
+    public int getTotalBikesRecharged(){
+        int total = 0;
+        for(Dock dock : docks){
+            total += dock.getNumerEVRecharged();
+        }
+        return total;
+    }
+    
+    /**
+     * @return A formatted string with station ID, total recharged bikes, and location
+     */
+    @Override
+    public String toString(){
+        return "(Biketation: " + idStation + ", " + getTotalBikesRecharged() + ", " + location + ")";
+    }
+    
+    /**
+     * Compares two BikeStation objects for equality based on station ID
+     * @param obj The object to compare with
+     * @return (true) if both stations have the same ID, (false) otherwise
+     */
+    @Override
+    public boolean equals(Object obj){
+        boolean isEqual = false;
+        if(this == obj){
+            isEqual = true;
+        } else{
+            if(obj!= null && getClass() == obj.getClass()){
+                BikeStation other = (BikeStation) obj;
+                isEqual = this.idStation.equals(other.idStation);
+            }
+        }
+        return isEqual;
+    }
+    
+    /**
+     * Generates a hash code based on the station ID
+     * @return Hash code for the station
+     */
+    @Override
+    public int hashCode(){
+        return idStation.hashCode();
+    }
+    
 }
