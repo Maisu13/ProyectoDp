@@ -176,23 +176,26 @@ public class ElectricBike
     /**
      * Simulates the recharging process when the bike arrives at a {@code rechargingLocation}.
      * The battery is charged to full capacity, the cost is calculated, and the route is recalculated.
-     * //TODO complete the JavaDoc comments
      */
-    public void recharge(   )
+    public void recharge()
     {
-        BikeStation station = company.getStationAt(location);
+        
+        BikeStation station = company.getBikeStation(location);
+        
         if (station != null){
             Dock dock = station.getFreeDock();
             
             if (dock != null){
                 int whToCharge = batteryCapacity - batteryLevel;
                         
-                dock.addRechargedBike();
+                
+                float cost = dock.recharge(this, whToCharge);
+                
                 docks.add(dock);
                 batteryLevel = batteryCapacity;
                 wsCharged += whToCharge;
                 incrementCharges();
-                incrementChargesCost(whToCharge * dock.getTariff());
+                incrementChargesCost(cost); 
                 
                 calculateRoute();
             }

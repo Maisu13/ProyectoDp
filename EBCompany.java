@@ -68,7 +68,7 @@ public class EBCompany
     public BikeStation getBikeStation(Location location)
     {
         for (BikeStation station : stations){
-            if (station.get().equals(location)){
+            if (station.getLocation().equals(location)){
                 return station;
             }
         }
