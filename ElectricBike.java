@@ -61,7 +61,20 @@ public class ElectricBike
     {
         return idBike;    
     }
-
+    
+    /**
+     * @return The numbre of turns the bike has been idle at its final destination
+     */
+    public int getIdleCount(){
+        return idleCount;
+    }
+    
+    /**
+     * @return The current location of the electric bike
+     */
+    public Location getLocation(){
+        return location;
+    }
     /**
      * Set the current location.
      * @param location Where it is. Must not be null.
