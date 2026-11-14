@@ -141,7 +141,7 @@ public class EBikeDemo
         Location [] locations = {new Location(10,5), new Location(10,11), new Location(14,16), new Location(8,4)};
                                 
         for (int i=0;i<DEMO.getNumStationsToCreate();i++){
-            company.addBikeStation(new BikeStation("CC0" + i,locations[i]));
+            BikeStation station = new BikeStation("CC0" + i,locations[i]);
             stations.add(station);
             company.addBikeStation(station);
         }
@@ -194,7 +194,7 @@ public class EBikeDemo
         System.out.println("( Bike Stations )");
         System.out.println("(-------------------)");
        
-        for(BikeStation station : station ){
+        for(BikeStation station : stations ){
             System.out.println(station.toString());
             for(Dock dock : station.getDocks()) {
                 System.out.println(dock.toString());
@@ -221,7 +221,7 @@ public class EBikeDemo
         System.out.println("( Electric Bikes )");
         System.out.println("(-------------------)");
         
-        for(Electric bike : bikes) {
+        for(ElectricBike bike : bikes) {
             System.out.println(bike.toString());
         }
         
@@ -229,7 +229,7 @@ public class EBikeDemo
         System.out.println("( Bike Stations )");
         System.out.println("(-------------------)");
         
-        for(BikeStation station : station) {
+        for(BikeStation station : stations ) {
             System.out.println(station.toString());
             for(Dock dock : station.getDocks()) {
                 System.out.println(dock.toString());
