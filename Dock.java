@@ -38,6 +38,7 @@ public class Dock
         
         this.idDock = id;
         this.chargingSpeed = speed;
+        this.chargingFee = fee;
         this.bikesRecharged = new ArrayList<>();
         this.amountCollected= 0.0f;
         this.free = true;
@@ -61,7 +62,7 @@ public class Dock
      */
     public float recharge( ElectricBike bike, int energyToCharge  ){
         if( bike == null){
-            throw new IllegalArgumentException("La bicicleta a recargar no puede ser nula");
+            throw new IllegalArgumentException("The bike to recharge cannot be null");
         }
         float cost = energyToCharge * this.chargingFee;
         this.amountCollected += cost;
