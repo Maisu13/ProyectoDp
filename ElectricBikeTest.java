@@ -67,6 +67,15 @@ public class ElectricBikeTest
         electric1.calculateRoute();
         assertEquals(null, electric1.getRechargingLocation());
     }
+    
+    @Test
+    public void testRecharge()
+    {
+        electric1.reduceBatteryLevel();
+        assertEquals(false, electric1.enoughBattery(20));
+        electric1.recharge();
+        assertEquals(true, electric1.enoughBattery(20));
+    }
 }
 
 
