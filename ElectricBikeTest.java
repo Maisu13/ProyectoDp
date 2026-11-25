@@ -4,10 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * The test class ElectricBikeTest.
- *
- * @author  (your name)
- * @version (a version number or a date)
+ * Unit tests for the {@link ElectricBike} class.
+ * @author Oscar
+ * @version 2026.11.15
  */
 public class ElectricBikeTest
 {
@@ -15,33 +14,28 @@ public class ElectricBikeTest
     private Location location1;
     private Location location2;
     private ElectricBike electric1;
+    private BikeStation stationStart;
+    private BikeStation stationMid;
 
-    /**
-     * Default constructor for test class ElectricBikeTest
-     */
-    public ElectricBikeTest()
-    {
-    }
-
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     */
     @BeforeEach
     public void setUp()
     {
         eBCompan1 = new EBCompany("E-Bike Tour");
         location1 = new Location(0, 0);
         location2 = new Location(10, 10);
-        electric1 = new ElectricBike(eBCompan1, location1, location2, "Bike1", 100);
+        
+        stationStart = new BikeStation("CC00", new Location(0, 0));
+        stationStart.addDock(new Dock("CC00_001", 80, 0.8f));
+        
+        stationMid = new BikeStation("CC01", new Location(5, 5));
+        stationMid.addDock(new Dock("CC01_001", 60, 0.6f));
+        
+        eBCompan1.addBikeStation(stationStart);
+        eBCompan1.addBikeStation(stationMid);
+        
+        electric1 = new ElectricBike(eBCompan1, location1, location2, "EBCC01", 100);
     }
 
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
     @AfterEach
     public void tearDown()
     {
@@ -50,32 +44,40 @@ public class ElectricBikeTest
     @Test
     public void testCreation()
     {
-        assertEquals("Bike1", electric1.getIdBike());
-        assertEquals(true, electric1.enoughBattery(20));
+        assertEquals("EBCC01", electric1.getIdBike());
+        assertEquals(location1, electric1.getLocation());
+        assertEquals(location2, electric1.getTargetLocation());
+        assertTrue(electric1.enoughBattery(20));
     }
 
     @Test
     public void testEnoughBattery()
     {
-        assertEquals(true, electric1.enoughBattery(10));
-        assertEquals(false, electric1.enoughBattery(21));
+        assertTrue(electric1.enoughBattery(10));
+        assertFalse(electric1.enoughBattery(21));
     }
 
     @Test
     public void testCalculateRoute()
     {
+        
         electric1.calculateRoute();
-        assertEquals(null, electric1.getRechargingLocation());
+        assertNull(electric1.getRechargingLocation());
+        
+        
+        ElectricBike lowBatteryBike = new ElectricBike(eBCompan1, location1, location2, "EBCC02", 30);
+        assertEquals(new Location(5, 5), lowBatteryBike.getRechargingLocation());
     }
     
     @Test
     public void testRecharge()
     {
+    
         electric1.reduceBatteryLevel();
-        assertEquals(false, electric1.enoughBattery(20));
+        assertFalse(electric1.enoughBattery(20));
+        
+        
         electric1.recharge();
-        assertEquals(true, electric1.enoughBattery(20));
+        assertTrue(electric1.enoughBattery(20));
     }
 }
-
-

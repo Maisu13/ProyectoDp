@@ -126,8 +126,10 @@ public class BikeStation
      * @return A formatted string with station ID, total recharged bikes, and location
      */
     @Override
-    public String toString(){
-        return "(Biketation: " + idStation + ", " + getTotalBikesRecharged() + ", " + location + ")";
+    
+    public String toString()
+    {
+        return "(BikeStation: " + idStation + ", " + getTotalBikesRecharged() + ", " + location + ")";
     }
     
     /**

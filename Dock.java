@@ -125,8 +125,9 @@ public class Dock
     @Override
     public String toString()
     {
-        String feeStr = (chargingFee + "").replace(',','.');
-        String amountStr =(amountCollected + "").replace(',','.');
-        return "Dock: " + idDock + "," + chargingSpeed + "wh,  " + feeStr +"€, " + bikesRecharged.size() + ", " + amountStr + "€)";
-    }    
+        float feeRounded = Math.round(chargingFee * 10.0f) / 10.0f;
+        float amountRounded = Math.round(amountCollected * 10.0f) / 10.0f;
+        return "(Dock: " + idDock + ", " + chargingSpeed + "wh, " + feeRounded + "€, " + 
+               bikesRecharged.size() + ", " + amountRounded + "€)";
+    } 
 }

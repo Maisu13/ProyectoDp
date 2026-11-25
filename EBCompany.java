@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Iterator;
 /**
  * Models the operation of an Electric Bike (EB) Company. 
  * It manages a fleet of {@link ElectricBike}s and a network of {@link BikeStation}s.
@@ -46,36 +46,40 @@ public class EBCompany
     
     
     /**
-     * Retrieves a {@link BikeStation} by its unique ID.
+     * Retrieves a {@link BikeStation} by its unique ID using an Iterator.
      * @param id The ID of the station to find.
      * @return The {@link BikeStation} with the matching ID, or {@code null} if not found.
      */
     public BikeStation getBikeStation(String id)
     {
-        for (BikeStation station : stations){
-            if (station.getId().equals(id)){
-                return station;
+        BikeStation foundStation = null;
+        Iterator<BikeStation> it = stations.iterator();
+        while (it.hasNext() && foundStation == null) {
+            BikeStation current = it.next();
+            if (current.getId().equals(id)) {
+                foundStation = current;
             }
         }
-        return null;
+        return foundStation;
     }
 
     /**
-     * Retrieves a {@link BikeStation} by its {@link Location}.
+     * Retrieves a {@link BikeStation} by its {@link Location} using an Iterator.
      * @param location The {@link Location} of the station to find.
      * @return The {@link BikeStation} at the matching location, or {@code null} if not found.
      */
     public BikeStation getBikeStation(Location location)
     {
-        for (BikeStation station : stations){
-            if (station.getLocation().equals(location)){
-                return station;
+        BikeStation foundStation = null;
+        Iterator<BikeStation> it = stations.iterator();
+        while (it.hasNext() && foundStation == null) {
+            BikeStation current = it.next();
+            if (current.getLocation().equals(location)) {
+                foundStation = current;
             }
         }
-        return null;
+        return foundStation;
     }
-    
-    
     /**
      * @return The total number of managed {@link BikeStation}s.
      */

@@ -17,8 +17,12 @@ public class ComparatorBikeStationId implements Comparator<BikeStation>
      * @return A negative integer, zero, or a positive integer as the first
      * station's ID is less than, equal to, or greater than the second.
      */
-    public int compare(BikeStation st1, BikeStation st2){  
-        //TODO: Complete this code   
-        return 0;
-    } 
+    @Override
+    public int compare(BikeStation st1, BikeStation st2)
+    {
+        if (st1 == null || st2 == null) {
+            throw new IllegalArgumentException("Stations to compare cannot be null.");
+        }
+        return st1.getId().compareTo(st2.getId());
+    }
 }
